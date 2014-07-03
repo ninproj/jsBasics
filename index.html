@@ -11,6 +11,7 @@
 
 				b = new trigBlocks();
 				b.colorThem();
+				b.addListeners();
 			}
 
 			var trigBlocks= function(){
@@ -25,9 +26,63 @@
 					})
 
 				}
+				 
+
+
+
+				 this.addListeners= function(){
+				 	whichOne = 0;
+				 	$('.thingy').on('click', function(){
+				 		
+				 		$('this').attr('original', $(this).css('background-color'))
+
+				 		if($(this).hasClass('active')){
+				 			return false;
+				 		}
+
+				 		$(this).addClass('active');
+		
+				 		switch(whichOne){
+				 			case 0:
+				 			aniLeft = "90%";
+				 			aniTop = "60%";
+				 			tColor = "green";
+				 			break;
+				 			case 1:
+				 			aniLeft = "50%";
+				 			aniLeft = "-30%";
+				 			tColor ="orange";
+				 			break;
+				 			case 2:
+				 			aniLeft = "20%";
+				 			aniLeft = "30%";
+				 			tColor ="purple";
+				 			break;
+				 		}
+
+				 		$(this).animate({"left": aniLeft, "top":aniTop});
+				 		
+				 		$(this).css({"background-color": tColor});
+				 		
+				 		whichOne=whichOne+1;
+				 		if(whichOne >2){
+				 			
+				 			setTimeout(function(){
+				 				$('.thingy').animate({"left":"0%", "top":"0%"})
+				 				$('.thingy').each(function(){
+				 					$(this).css({"background-color":$(this).attr('original')})
+
+				 				})
+				 			}, 2000);
+				 				$('.thingy').removeClass('active');
+							whichOne=0;
+						}
+				 	})
+				 }
 			}
 
 		</script>
+
 		<style>
 			.thingy {
 				height: 100px;
@@ -35,6 +90,9 @@
 				background-color:blue;
 				margin:10px;
 				display:block;
+				left: 0%;
+				position: relative;
+
 			}
 
 		</style>
